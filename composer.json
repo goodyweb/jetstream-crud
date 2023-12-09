@@ -1,0 +1,28 @@
+{
+    "name": "goodyweb/jetstream-crud",
+    "description": "Create, Read, Update, and Delete for Jetstream",
+    "type": "laravel-package",
+    "require": {
+        "illuminate/console": "^10.35",
+        "illuminate/support": "^10.35",
+        "livewire/livewire": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Goodyweb\\JetstreamCrud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "abelcallejo",
+            "email": "abel@goodyweb.com.ph"
+        }
+    ],
+    "extra": {
+        "laravel": {
+           "providers": [
+               "Goodyweb\\JetstreamCrud\\Support\\JetstreamCrudServiceProvider"
+           ]
+        }
+      }
+}
