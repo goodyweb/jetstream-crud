@@ -24,6 +24,43 @@ composer require goodyweb/jetstream-crud dev-master
    ```bash
    php artisan make:migration create_persons_table --create=persons
    ```
+    - Make some edits
+      ```php
+        <?php
+
+        use Illuminate\Database\Migrations\Migration;
+        use Illuminate\Database\Schema\Blueprint;
+        use Illuminate\Support\Facades\Schema;
+
+        return new class extends Migration
+        {
+            /**
+            * Run the migrations.
+            */
+            public function up(): void
+            {
+                Schema::create('persons', function (Blueprint $table) {
+                    $table->id();
+                    // add something columns here maybe
+                    $table->timestamps();
+                });
+            }
+
+            /**
+            * Reverse the migrations.
+            */
+            public function down(): void
+            {
+                Schema::dropIfExists('persons');
+            }
+        };
+      ```
+     - Execute the actual creation of the table
+       ```php
+       php artisan migrate
+       ```
+
+
 
 2. Make the Eloquent Model for the database table as you usually would:
    ```bash
