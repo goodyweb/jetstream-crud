@@ -82,6 +82,7 @@ class {livewire} extends Component {
         }
         $this->collection_start_offset = $this->collection_offset + 1;
         $this->collection_end_offset = $this->collection_offset + $this->collection_limit;
+        $this->collection_total_entries = {model_short}::count();
         if( $this->collection->count() < $this->collection_end_offset ) {
             $this->collection_end_offset = $this->collection->count();
         }
@@ -103,21 +104,27 @@ class {livewire} extends Component {
         $this->updated();
     }
 
+    public function add() {
+        $this->item = new {model_short}();
+        $this->mode = 'add';
+        $this->updated();
+    }
+
     public function edit($primary_key) {
         $this->item = {model_short}::where($this->primary_key,$primary_key)->first();
         $this->mode = 'edit';
         $this->updated();
     }
 
-    public function cancelEdit() {
+    public function cancelAddorEdit() {
         $this->item = new {model_short}();
         $this->mode = null;
         $this->updated();
     }
 
-    public function saveEdit() {
+    public function save() {
         $this->item->save();
-        //$this->item = new {model_short}();
+        $this->item = new {model_short}();
         $this->mode = null;
         $this->updated();
     }
@@ -129,6 +136,13 @@ class {livewire} extends Component {
     }
 
     public function cancelDelete() {
+        $this->item = new {model_short}();
+        $this->mode = null;
+        $this->updated();
+    }
+
+    public function proceedDelete() {
+        $this->item->delete();
         $this->item = new {model_short}();
         $this->mode = null;
         $this->updated();

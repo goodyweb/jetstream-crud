@@ -111,11 +111,15 @@
                 $component_code = str_replace( '{fields-searchable}', $fields_searchable_string, $component_code );
 
                 // Blade customizations
-                $blade_input_fields_string = PHP_EOL;
+                $blade_input_fields_edit_string = PHP_EOL;
+                $blade_verify_fields_delete_string = PHP_EOL;
                 for($i=0; $i<count($model_attributes); $i++) {
-                    $blade_input_fields_string = $blade_input_fields_string . "\t\t\t\t\t<label for=\"item-{$model_attributes[$i]}\">" . ucfirst(strtolower(str_replace('_', ' ', $model_attributes[$i]))) . "</label>" . PHP_EOL;
+                    $blade_input_fields_edit_string = $blade_input_fields_edit_string . "\t\t\t\t\t<label for=\"item-{$model_attributes[$i]}\">{{ " . '$fields[\'' . $model_attributes[$i] . '\']' . " }}</label>" . PHP_EOL;
                     $disabled_prop = ( in_array($model_attributes[$i], [$model_instance->getKeyName(),'created_at','updated_at']) ? 'disabled="disabled"' : '');
-                    $blade_input_fields_string = $blade_input_fields_string . "\t\t\t\t\t<x-input type=\"text\" wire:model=\"item.{$model_attributes[$i]}\" id=\"item-{$model_attributes[$i]}\" class=\"col-span-1 md:col-span-2 block\" {$disabled_prop} placeholder=\"\" />" . PHP_EOL . PHP_EOL;    
+                    $blade_input_fields_edit_string = $blade_input_fields_edit_string . "\t\t\t\t\t<x-input type=\"text\" wire:model=\"item.{$model_attributes[$i]}\" id=\"item-{$model_attributes[$i]}\" class=\"col-span-1 md:col-span-2 block\" {$disabled_prop} placeholder=\"\" />" . PHP_EOL . PHP_EOL;    
+
+                    $blade_verify_fields_delete_string = $blade_verify_fields_delete_string . "\t\t\t\t\t<label for=\"item-{$model_attributes[$i]}\">{{ " . '$fields[\'' . $model_attributes[$i] . '\']' . " }}</label>" . PHP_EOL;
+                    $blade_verify_fields_delete_string = $blade_verify_fields_delete_string . "\t\t\t\t\t<x-input type=\"text\" wire:model=\"item.{$model_attributes[$i]}\" id=\"item-{$model_attributes[$i]}\" class=\"col-span-1 md:col-span-2 block\" disabled=\"disabled\" placeholder=\"\" />" . PHP_EOL . PHP_EOL;    
                 }
 
                 // Load the sample Livewire Blade
@@ -123,7 +127,8 @@
 
                 //Customization of the Livewire Blade
                 $blade_code = $blade_template;
-                $blade_code = str_replace( '{input-fields}', $blade_input_fields_string, $blade_code );
+                $blade_code = str_replace( '{input-fields-edit}', $blade_input_fields_edit_string, $blade_code );
+                $blade_code = str_replace( '{verify-fields-delete}', $blade_verify_fields_delete_string, $blade_code );
                 
 
                 // Make the Livewire Components folder if it doesn't exist
