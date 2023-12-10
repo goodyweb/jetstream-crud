@@ -2,6 +2,14 @@
 ![Composer logo](https://upload.wikimedia.org/wikipedia/commons/archive/2/26/20150131091334%21Logo-composer-transparent.png)
 # Jetstream CRUD
 
+This Laravel package generates bare Livewire Components and Blade templates that would allow you to manipulate the records of a certain database table. The modules include:
+ - **C**reate
+ - **R**ead
+ - **U**pdate
+ - **D**elete
+ - Search
+ - Pagination
+
 ## Getting started
 
 This package makes it easy to create a full CRUD module by just issuing a single command:
@@ -10,13 +18,21 @@ php artisan generate:crud --model=Person --livewire=Persons
 ```
 **Voila!**
 
-See the [Installation](#nstallation) and [Usage](#usage) sections for the full details.
+See the [Installation](#nstallation), [Configuration](#configuration), and [Usage](#usage) sections for the full details.
 
 ## Installation
 
 ```bash
 composer require goodyweb/jetstream-crud dev-master
 ```
+
+## Configuration
+On your Livewire configuration file (`config/livewire.php`), set the `legacy_model_binding` option to `true` like so:
+
+```php
+'legacy_model_binding' => true,
+```
+Important: If you don't have the `config/livewire.php` file, you may just create one with the default content from the [raw code repository](https://raw.githubusercontent.com/livewire/livewire/main/config/livewire.php).
 
 ## Usage
 
@@ -72,8 +88,8 @@ composer require goodyweb/jetstream-crud dev-master
    php artisan generate:crud --model=Person --livewire=Persons
    ```
 
-   | Parameter | Example | Explanation |
+   | Parameter | Argument | Explanation |
    |-----------|---------|-------------|
-   | **Model** | `--model=Person` | `Person` refers to the Eloquent Model that will be used for the whole CRUD module. |
-   | **Livewire** | `--livewire=Persons` | `Persons` refers to the class name of the Livewire that will be generated. |
+   | `model` | `Person` | `Person` refers to the Eloquent Model that will be used for the whole CRUD module. |
+   | `livewire` | `Persons` | `Persons` refers to the class name of the Livewire that will be generated. |
 
